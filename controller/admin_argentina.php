@@ -2,7 +2,7 @@
 
 /*
  * This file is part of FacturaSctipts
- * Copyright (C) 2015  Carlos Garcia Gomez  neorazorx@gmail.com
+ * Copyright (C) 2015-2016  Carlos Garcia Gomez  neorazorx@gmail.com
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -17,6 +17,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+require_model('impuesto.php');
 
 /**
  * Description of admin_argentina
@@ -33,23 +35,6 @@ class admin_argentina extends fs_controller
    protected function private_core()
    {
       $this->share_extensions();
-      
-      if( isset($_GET['addiva'])) {
-          
-          $codimp = array("IVA0","IVA21","IVA105","IVA5","IVA27");
-          $desc = array("IVA 0%","IVA 21%","IVA 10,5%","IVA 5%","IVA 27%");
-          $recargo = 0;
-          $iva = array("0","21","10,5","5","27");
-          $cant = count($codimp);
-          for ($i=0;i<$cant;$i++){
-          $impuesto = new impuesto();
-          $impuesto->codimpuesto = $codimp[$i];
-          $impuesto->descripcion = $desc[$i];
-          $impuesto->recargo = $recargo;
-          $impuesto->iva = $iva[$i];
-          $impuesto->save();
-          }
-      } 
       
       if( isset($_GET['opcion']) )
       {
@@ -68,6 +53,33 @@ class admin_argentina extends fs_controller
             {
                $this->new_message('Datos guardados correctamente.');
             }
+         }
+         else if($_GET['opcion'] == 'iva')
+         {
+            /// eliminamos los impuestos que ya existen (los de Wspaña)
+            $imp0 = new impuesto();
+            foreach($imp0->all() as $impuesto)
+            {
+               $impuesto->delete();
+            }
+            
+            /// añadimos los de Argentina
+            $codimp = array("AR0","AR21","AR105","AR5","AR27");
+            $desc = array("AR 0%","AR 21%","AR 10,5%","AR 5%","AR 27%");
+            $recargo = 0;
+            $iva = array("0","21","10,5","5","27");
+            $cant = count($codimp);
+            for($i=0; $i<$cant; $i++)
+            {
+               $impuesto = new impuesto();
+               $impuesto->codimpuesto = $codimp[$i];
+               $impuesto->descripcion = $desc[$i];
+               $impuesto->recargo = $recargo;
+               $impuesto->iva = $iva[$i];
+               $impuesto->save();
+            }
+            
+            $this->new_message('Impuestos de Argentina añadidos.');
          }
       }
    }
