@@ -34,6 +34,23 @@ class admin_argentina extends fs_controller
    {
       $this->share_extensions();
       
+      if( isset($_GET['addiva'])) {
+          
+          $codimp = array("IVA0","IVA21","IVA105","IVA5","IVA27");
+          $desc = array("IVA 0%","IVA 21%","IVA 10,5%","IVA 5%","IVA 27%");
+          $recargo = 0;
+          $iva = array("0","21","10,5","5","27");
+          $cant = count($codimp);
+          for ($i=0;i<$cant;$i++){
+          $impuesto = new impuesto();
+          $impuesto->codimpuesto = $codimp[$i];
+          $impuesto->descripcion = $desc[$i];
+          $impuesto->recargo = $recargo;
+          $impuesto->iva = $iva[$i];
+          $impuesto->save();
+          }
+      } 
+      
       if( isset($_GET['opcion']) )
       {
          if($_GET['opcion'] == 'moneda')
