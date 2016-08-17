@@ -67,7 +67,7 @@ class admin_argentina extends fs_controller
             $codimp = array("AR0","AR21","AR105","AR5","AR27");
             $desc = array("AR 0%","AR 21%","AR 10,5%","AR 5%","AR 27%");
             $recargo = 0;
-            $iva = array("0","21","10,5","5","27");
+            $iva = array(0, 21, 10.5, 5, 27);
             $cant = count($codimp);
             for($i=0; $i<$cant; $i++)
             {

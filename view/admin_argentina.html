@@ -1,39 +1,52 @@
 {include="header"}
 
-<div class="container">
+<div class="container-fluid">
    <div class="row">
       <div class="col-sm-12">
          <div class="page-header">
             <h1>
-               <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
-               Argentina
+               <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Argentina
+               <a class="btn btn-xs btn-default" href="{$fsc->url()}" title="Recargar la página">
+                  <span class="glyphicon glyphicon-refresh"></span>
+               </a>
             </h1>
             <p class="help-block">
-               Este plugin está en desarrollo.
+               Este plugin está en desarrollo. Eres libre de aportar lo que puedas:
+               <a href="https://www.facturascripts.com/plugin/argentina" target="_blank">https://www.facturascripts.com/plugin/argentina</a>
             </p>
          </div>
       </div>
    </div>
    <div class="row">
       <div class="col-sm-6">
-         <a href="{$fsc->url()}&opcion=moneda" class="btn btn-block btn-default">
-            <span class="badge">1</span> &nbsp;
-            Establecer Pesos (ARG) como moneda por defecto
+         {if="$fsc->empresa->coddivisa=='ARS'"}
+         <a href="{$fsc->url()}&opcion=moneda" class="btn btn-block btn-success">
+            <span class="glyphicon glyphicon-ok"></span> &nbsp; Establecer Pesos (ARG) como moneda por defecto
          </a>
+         {else}
+         <a href="{$fsc->url()}&opcion=moneda" class="btn btn-block btn-default">
+            <span class="badge">1</span> &nbsp; Establecer Pesos (ARG) como moneda por defecto
+         </a>
+         {/if}
          <br/>
       </div>
       <div class="col-sm-6">
-         <a href="{$fsc->url()}&opcion=pais" class="btn btn-block btn-default">
-            <span class="badge">2</span> &nbsp;
-            Establecer Argentina como pais por defecto
+         {if="$fsc->empresa->codpais=='ARG'"}
+         <a href="{$fsc->url()}&opcion=pais" class="btn btn-block btn-success">
+            <span class="glyphicon glyphicon-ok"></span> &nbsp; Establecer Argentina como pais por defecto
          </a>
+         {else}
+         <a href="{$fsc->url()}&opcion=pais" class="btn btn-block btn-default">
+            <span class="badge">2</span> &nbsp; Establecer Argentina como pais por defecto
+         </a>
+         {/if}
          <br/>
       </div>
       <div class="col-sm-6">
          <a href="{$fsc->url()}&opcion=iva" class="btn btn-block btn-default">
-            <span class="badge">3</span> &nbsp;
-            Añadir impuestos para Argentina
+            <span class="badge">3</span> &nbsp; Añadir impuestos para Argentina
          </a>
+         <p class='help-block'>Aunque esté activado no se marca en verde. Lo siento ;-)</p>
          <br/>
       </div>
    </div>
