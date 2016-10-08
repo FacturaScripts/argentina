@@ -43,10 +43,15 @@
          <br/>
       </div>
       <div class="col-sm-6">
+         {if="$fsc->impuestos_ok"}
+         <a href="{$fsc->url()}&opcion=iva" class="btn btn-block btn-success">
+            <span class="glyphicon glyphicon-ok"></span> &nbsp; Añadir impuestos para Argentina
+         </a>
+         {else}
          <a href="{$fsc->url()}&opcion=iva" class="btn btn-block btn-default">
             <span class="badge">3</span> &nbsp; Añadir impuestos para Argentina
          </a>
-         <p class='help-block'>Aunque esté activado no se marca en verde. Lo siento ;-)</p>
+         {/if}
          <br/>
       </div>
    </div>
